@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from . import forms
 from . import models
 # Create your views here.
@@ -30,7 +30,11 @@ def note(request):
             return redirect(to='noteapp:main')
         else:
             return render(request, 'noteapp/note.html', {'tags': tags, 'form': form})
+
     return render(request, 'noteapp/note.html', {"tags": tags, 'form': forms.NoteForm()})
 
+def detail(request, note_id):
+    note = get_object_or_404(models.Note, pk=note_id)
+    return render(request, 'noteapp/detail.html', {'note': note})
 
     
