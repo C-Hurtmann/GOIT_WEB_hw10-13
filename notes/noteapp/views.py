@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from . import forms
 from . import models
 # Create your views here.
+
 def main(request):
-    return render(request, 'noteapp/index.html')
+    notes = models.Note.objects.all()
+    return render(request, 'noteapp/index.html', {'notes': notes})
 
 def tag(request):
     if request.method == 'POST':
@@ -37,4 +39,11 @@ def detail(request, note_id):
     note = get_object_or_404(models.Note, pk=note_id)
     return render(request, 'noteapp/detail.html', {'note': note})
 
-    
+def set_done(request, note_id):
+    models.Note.filter(pk=note_id).update(done=True)
+    return redirect(to='noteapp:main')
+
+def delete_note(reqiest, note_id):
+    models.Note.objects.get(id=note_id).delete()
+    return redirect(to='noteapp:main')
+
