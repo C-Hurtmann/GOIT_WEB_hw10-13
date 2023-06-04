@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from . import forms
+from . import models
 
 # Create your views here.
 def signupuser(request):
@@ -41,5 +42,13 @@ def logoutuser(request):
 
 @login_required
 def profile(request):
-    return render(request, 'users/profile.html')
+    if request.method == 'POST':
+        profile_form = forms.ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if profile_form.is_valid():
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(to='users:profile')
+    
+    profile_form = forms.ProfileForm(instance=request.user.profile)
+    return render(request, 'users/profile.html', {'profile_form': profile_form})
 
