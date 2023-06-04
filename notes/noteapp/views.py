@@ -13,9 +13,9 @@ def tag(request):
     if request.method == 'POST':
         form = forms.TagForm(request.POST)
         if form.is_valid():
-            form.save(commit=False)
+            tag = form.save(commit=False)
             tag.user = request.user
-            tag.save()
+            tag.save()  # TODO fix it - AtribuuteError - 'function' object has no attribute 'save'
             return redirect(to='noteapp:main')
         else:
             return render(request, 'noteapp/tag.html', {'form': form})
@@ -46,10 +46,12 @@ def detail(request, note_id):
     note = get_object_or_404(models.Note, pk=note_id, user=request.user)
     return render(request, 'noteapp/detail.html', {'note': note})
 
+@login_required
 def set_done(request, note_id):
-    models.Note.filter(pk=note_id, user=request.user).update(done=True)
+    models.Note.objects.filter(pk=note_id, user=request.user).update(done=True)
     return redirect(to='noteapp:main')
 
+@login_required
 def delete_note(request, note_id):
     models.Note.objects.get(id=note_id, user=request.user).delete()
     return redirect(to='noteapp:main')
