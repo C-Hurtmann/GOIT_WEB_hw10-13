@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import TagForm, AuthorForm, QuoteForm
-from .models import Tag, Author
+from .models import Tag, Author, Quote
 
 # Create your views here.
 def main(request):
@@ -40,3 +40,12 @@ def quote(request):
         else:
             return render(request, 'quotesapp/quote.html', {'tags': tags, 'form': form})
     return render(request, 'quotesapp/quote.html', {'tags': tags, 'form': QuoteForm()})
+
+
+def quote_detail(request, quote_id):
+    quote = get_object_or_404(Quote, pk=quote_id)
+    return render(request, 'quotesapp/quote_detail.html', {'quote': quote})
+
+def author_detail(request, author_id):
+    author = get_object_or_404(Author, pk=author_id)
+    return render(request, 'quotesapp/author_detail.html', {'author': author})
