@@ -7,7 +7,26 @@
 </head>
 <body>
 <main class="container">
-    <h1>My main page</h1>
+    <nav style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px">
+        <ul>
+            <li><a href="{% url 'quotesapp:quote' %}" role="button">Add Quote</a></li>
+            <li><a href="{% url 'quotesapp:author' %}" role="button">Add Author</a></li>
+        </ul>
+    </nav>
+    {% for quote in quotes %}
+    <ul>
+        <li>
+            <figure style="border-left: .25rem solid">
+                <blockquote>
+                    <p>"{{ quote.quote }}"</p>
+                </blockquote>
+                <figcaption> (c) {{quote.author}} 
+                    <a href="{% url 'quotesapp:author_detail' quote.author_id %}" role="button" class="outline"> about </a>
+                </figcaption>
+            </figure>
+        </li>
+    </ul>
+    {% endfor %}
 </main>
 </body>
 </html>

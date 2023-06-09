@@ -4,7 +4,9 @@ from .models import Tag, Author, Quote
 
 # Create your views here.
 def main(request):
-    return render(request, 'quotesapp/index.html')
+    quotes = Quote.objects.all()
+    authors = Author.objects.all()
+    return render(request, 'quotesapp/index.html', {'quotes': quotes, 'authors': authors})
 
 def tag(request):
     if request.method == 'POST':
