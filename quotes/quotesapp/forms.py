@@ -24,9 +24,8 @@ class AuthorForm(forms.ModelForm):
 class QuoteForm(forms.ModelForm):
     quote = forms.Textarea()
     author = forms.ModelChoiceField(queryset=Author.objects.all())
-    tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all())
     
     class Meta:
         model = Quote
-        fields = ['quote', 'author', 'tags']
+        fields = ['quote', 'author']
         exclude = ['tags']

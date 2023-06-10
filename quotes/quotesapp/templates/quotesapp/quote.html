@@ -18,13 +18,14 @@
         </label>
         <span>{{ form.errors.author }}</span>
     </div>
+    <!--new tags template
     <div style="padding: 10px">
         <label> Select tags:
             {{ form.tags }}
         </label>
         <span>{{ form.errors.tags }}</span>
-    </div>   
-    <!--tags
+    </div>
+    -->
     <div style="padding: 10px">
         <label> Select tags:
             <select name="tags" multiple="multiple" required>
@@ -34,9 +35,8 @@
             </select>
         </label>
     </div>
--->
     <div class="grid">
-        <button type="submit">Submit</button>
+        <button type="submit" name="submit">Submit</button>
         <button type="reset" class="secondary">Reset</button>
     </div>
 </form>

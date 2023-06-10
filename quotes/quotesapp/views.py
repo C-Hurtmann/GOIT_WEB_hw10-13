@@ -9,6 +9,7 @@ def main(request):
     authors = Author.objects.all()
     return render(request, 'quotesapp/index.html', {'quotes': quotes, 'authors': authors})
 
+@login_required
 def tag(request):
     if request.method == 'POST':
         form = TagForm(request.POST)
@@ -41,10 +42,10 @@ def quote(request):
             new_quote = form.save(commit=False)
             new_quote.user = request.user
             new_quote.save()
-           # choise_tags = Tag.objects.filter(name__in=request.POST.getlist('tags'))
-           # for tag in choise_tags.iterator():
-           #     new_quote.tags.add(tag)
-            
+            choice_tags = Tag.objects.filter(name__in=request.POST.getlist('tags'))
+            for tag in choice_tags.iterator():
+                new_quote.tags.add(tag)
+
             return redirect(to='quotesapp:main')
         else:
             return render(request, 'quotesapp/quote.html', {'tags': tags, 'form': form})
