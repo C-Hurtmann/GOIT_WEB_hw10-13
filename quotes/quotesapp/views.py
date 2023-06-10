@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import TagForm, AuthorForm, QuoteForm
 from .models import Tag, Author, Quote
@@ -18,22 +19,28 @@ def tag(request):
             return render(request, 'quotesapp/tag.html', {'form': form}) #  if form filled with mistakes
     return render(request, 'quotesapp/tag.html', {'form': TagForm()}) #  first enter to page
 
+@login_required
 def author(request):
     if request.method =='POST':
         form = AuthorForm(request.POST)
         if form.is_valid():
-            form.save()
+            author = form.save(commit=False)
+            author.user = request.user
+            author.save()
             return redirect(to='quotesapp:main')
         else:
             return render(request, 'quotesapp/author.html', {'form': form})
     return render(request, 'quotesapp/author.html', {'form': AuthorForm()})
 
+@login_required
 def quote(request):
     tags = Tag.objects.all()
     if request.method == 'POST':
         form = QuoteForm(request.POST)
         if form.is_valid():
-            new_quote = form.save()
+            new_quote = form.save(commit=False)
+            new_quote.user = request.user
+            new_quote.save()
            # choise_tags = Tag.objects.filter(name__in=request.POST.getlist('tags'))
            # for tag in choise_tags.iterator():
            #     new_quote.tags.add(tag)
