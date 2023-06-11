@@ -1,3 +1,4 @@
+{% load filter_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,34 +39,49 @@
         </ul>
         {% endif %}
     </nav>
-
-    {% for quote in page_obj %}
-    <ul>
-        <li>
-            <figure style="border-left: .25rem solid">
-                <blockquote>
-                    <p>{{ quote.quote }}</p>
-                </blockquote>
-                <figcaption> (c) {{quote.author}} 
-                    <a href="{% url 'quotesapp:author_detail' quote.author_id %}" role="button" class="outline"> about </a>
-                </figcaption>
-                <div>
-                {% for tag in quote.tags.all %}
-                {% if quote.tags.all %}
-                    <ul class="horizontal-list">
-                        <li>
-                            <span>
-                                {{ tag }}
-                            </span>              
-                        </li>
-                    </ul>
-                {% endif %}
+    <div style="display: flex;">
+        <div>
+            {% for quote in page_obj %}
+            <ul>
+                <li>
+                    <figure style="border-left: .25rem solid">
+                        <blockquote>
+                            <p>{{ quote.quote }}</p>
+                        </blockquote>
+                        <figcaption> (c) {{quote.author}} 
+                            <a href="{% url 'quotesapp:author_detail' quote.author_id %}" role="button" class="outline"> about </a>
+                        </figcaption>
+                        <div>
+                        {% for tag in quote.tags.all %}
+                        {% if quote.tags.all %}
+                            <ul class="horizontal-list">
+                                <li>
+                                    <span>
+                                        {{ tag }}
+                                    </span>              
+                                </li>
+                            </ul>
+                        {% endif %}
+                        {% endfor %}
+                        </div>
+                    </figure>
+                </li>
+            </ul>
+            {% endfor %}
+        </div>
+        <div>
+            {% get_top_tags as top_tags %}
+            <ul style="list-style: none;">
+                {% for tag in top_tags %}
+                <li style="list-style-type: none;">
+                    <u>
+                        {{tag}}
+                    </u>
+                </li>
                 {% endfor %}
-                </div>
-            </figure>
-        </li>
-    </ul>
-    {% endfor %}
+            </ul>
+        </div>
+    </div>
     <nav style="display: flex; justify-content: center; border-top: 2px solid;">
         <ul>
             {% if page_obj.has_previous %}

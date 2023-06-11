@@ -29,7 +29,7 @@ class Author(models.Model):
 class Quote(models.Model):
     quote = models.TextField(max_length=500, null=False)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, related_name='quotes')
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     
     def __str__(self):
