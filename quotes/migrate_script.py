@@ -45,17 +45,7 @@ def main():
             finally:
                 new_quote.tags.add(tag)
 
-def testing():
-    from django.db.models import Count
-    tags = Tag.objects.prefetch_related('quotes').all()
-    tags = tags.annotate(quotes_count=Count('quotes'))
-    tags = tags.order_by('-quotes_count')
-    most_common_tags = tags[:10]
-    for tag in most_common_tags:
-        quotes = tag.quotes.all()
-        quotes_qty = len([q for q in quotes])
-        print(tag.name, quotes_qty)
 
 if __name__ == '__main__':
     main()
-    testing()
+
