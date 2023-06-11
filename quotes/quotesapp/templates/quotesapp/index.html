@@ -39,12 +39,12 @@
         {% endif %}
     </nav>
 
-    {% for quote in quotes %}
+    {% for quote in page_obj %}
     <ul>
         <li>
             <figure style="border-left: .25rem solid">
                 <blockquote>
-                    <p>"{{ quote.quote }}"</p>
+                    <p>{{ quote.quote }}</p>
                 </blockquote>
                 <figcaption> (c) {{quote.author}} 
                     <a href="{% url 'quotesapp:author_detail' quote.author_id %}" role="button" class="outline"> about </a>
@@ -66,6 +66,29 @@
         </li>
     </ul>
     {% endfor %}
+    <nav style="display: flex; justify-content: center; border-top: 2px solid;">
+        <ul>
+            {% if page_obj.has_previous %}
+            <li>
+                <a href="?page={{ page_obj.previous_page_number }}">&lt</a>
+            </li>
+            {% endif %}
+            {% for page in page_obj.paginator.page_range %}
+            {% if page_obj.number == page %}
+            <li>{{ page }}</li>
+            {% elif page >= page_obj.number|add:-3 and page <= page_obj.number|add:3 %}
+            <li>
+                <a href="?page={{ page }}">{{ page }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+            <li>
+                <a href="?page={{ page_obj.next_page_number }}">&gt</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
 </main>
 </body>
 </html>
