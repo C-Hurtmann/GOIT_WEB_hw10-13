@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Tag(models.Model):
-    name = models.CharField(max_length=25, null=False, unique=True)
+    name = models.CharField(max_length=50, null=False, unique=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     
     class Meta:
@@ -16,9 +16,9 @@ class Tag(models.Model):
 
 
 class Author(models.Model):
-    fullname = models.CharField(max_length=50, null=False, unique=True)
+    fullname = models.CharField(max_length=100, null=False, unique=True)
     born_date = models.DateField(null=False)
-    born_location = models.CharField(max_length=50)
+    born_location = models.CharField(max_length=100)
     description = models.TextField(max_length=1000)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     
