@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-d2wu14o7wvxqq(f*s@e2d-g-ns#p%7=%s7bt)g#5axw90yxdv('
+SECRET_KEY = 'django-insecure-d2wu14o7wvxqq(f*s@e2d-g-ns#p%7=%s7bt)g#5axw90yxdv(' # TODO hyde this
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -78,11 +78,11 @@ WSGI_APPLICATION = 'quotes.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': '567234',
+        'NAME': 'homework10',
+        'USER': 'czagorodnyi',
+        'PASSWORD': 'B34f56j47h55',
         'HOST': '127.0.0.1',
-        'PORT': '5432'
+        'PORT': '5433'
     }
 }
 
