@@ -1,6 +1,5 @@
 import os
 import django
-from pprint import pprint
 
 import mongoDB.connection
 from mongoDB import models as mongo

@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["C-Hurtmann <constantine2903@gmail.com>"]
 readme = "README.md"
-packages = [{include = "goit_web_hw10"}]
+packages = [{include = "hw_django"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
