@@ -1,16 +1,18 @@
 import configparser
 from mongoengine import connect
 
+from pathlib import Path
 
-config_file = '/home/czagorodnyi/git/homeworks/GOIT_WEB_hw10/quotes/mongoDB/config.ini'
+import environ
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+env = environ.Env()
+env.read_env(BASE_DIR / '.env')
 
-config = configparser.ConfigParser()
-config.read(config_file)
-
-user = config.get('DB', 'user')
-password = config.get('DB', 'pass')
-db_name = config.get('DB', 'db_name')
-domain = config.get('DB', 'domain')
+user = env('MONGO_USER')
+password = env('MONGO_PASS')
+db_name = env('MONGO_DB_NAME')
+domain = env('MONGO_DOMAIN')
 
 connect(db=db_name,
         username=user,

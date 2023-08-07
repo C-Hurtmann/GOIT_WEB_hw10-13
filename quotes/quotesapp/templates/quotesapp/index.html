@@ -1,26 +1,18 @@
+{% load static %}
 {% load filter_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quotes catalogue</title>
-    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"/>
-    <style>
-        .horizontal-list {
-            display: inline;
-            list-style-type: none;
-            padding: 0;
-        }
-        
-        .horizontal-list li {
-            display:inline;
-            margin-right: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <link type="text/css" rel="stylesheet" href="{% static 'quotesapp/css/style.css' %}">
 </head>
 <body>
 <main class="container">
     <!--Navigation-->
+    {% block mainmenu %}
     <nav style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px">
         {% if user.is_authenticated %}
         <ul>
@@ -39,6 +31,7 @@
         </ul>
         {% endif %}
     </nav>
+    {% endblock mainmenu %}
     <div style="display: flex;">
         <div>
             {% for quote in page_obj %}
@@ -82,6 +75,7 @@
             </ul>
         </div>
     </div>
+    <!--Pagination-->
     <nav style="display: flex; justify-content: center; border-top: 2px solid;">
         <ul>
             {% if page_obj.has_previous %}
