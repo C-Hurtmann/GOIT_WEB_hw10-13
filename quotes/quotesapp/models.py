@@ -1,12 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 # Create your models here.
 class Tag(models.Model):
     name = models.CharField(max_length=50, null=False, unique=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     
-    class Meta:
+    class Meta: # Really need it?
         constraints = [
             models.UniqueConstraint(fields=['user', 'name'], name='tag of username')
             ]
@@ -24,6 +25,9 @@ class Author(models.Model):
     
     def __str__(self):
         return f'{self.fullname}'
+    
+    def get_absolute_url(self):
+        return reverse("quotesapp:author_detail", kwargs={'author_id': self.pk})
 
 
 class Quote(models.Model):

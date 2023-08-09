@@ -12,7 +12,6 @@
 <body>
 <main class="container">
     <!--Navigation-->
-    {% block mainmenu %}
     <nav style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px">
         {% if user.is_authenticated %}
         <ul>
@@ -31,10 +30,9 @@
         </ul>
         {% endif %}
     </nav>
-    {% endblock mainmenu %}
     <div style="display: flex;">
         <div>
-            {% for quote in page_obj %}
+            {% for quote in object_list %}
             <ul>
                 <li>
                     <figure style="border-left: .25rem solid">

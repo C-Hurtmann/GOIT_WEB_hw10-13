@@ -1,13 +1,12 @@
 from django.urls import path
-from . import views
+from .views import AddTag, AddAuthor, AddQuote, AuthorDetail, QuotesHome
 
 app_name = 'quotesapp'
 
 urlpatterns = [
-    path('', views.main, name='main'),
-    path('tag/', views.tag, name='tag'),
-    path('author/', views.author, name='author'),
-    path('quote/', views.quote, name='quote'),
-    path('quote_detail/<int:quote_id>', views.quote_detail, name='quote_detail'),
-    path('author_detail/<int:author_id>', views.author_detail, name='author_detail')
+    path('', QuotesHome.as_view(), name='main'),
+    path('tag/', AddTag.as_view(), name='tag'),
+    path('author/', AddAuthor.as_view(), name='author'),
+    path('quote/', AddQuote.as_view(), name='quote'),
+    path('author/<int:author_id>', AuthorDetail.as_view(), name='author_detail'),
     ]
