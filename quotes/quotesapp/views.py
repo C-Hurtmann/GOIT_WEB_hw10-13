@@ -2,6 +2,7 @@ from typing import Any
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.query import QuerySet
+from django.shortcuts import render
 from django.views.generic import ListView, CreateView, DetailView
 from django.urls import reverse_lazy
 
@@ -42,3 +43,7 @@ class AddQuote(LoginRequiredMixin, SetUserToModelMixin, CreateView):
     form_class = QuoteForm
     template_name = 'quotesapp/quote.html'
     success_url = reverse_lazy('quotesapp:main')
+
+
+def page_not_found_handler(request, exception):
+    return render(request, '404.html', status=404)

@@ -26,4 +26,3 @@ urlpatterns = [
     path('', include('quotesapp.urls')),
     path('users/', include('users.urls')),
 ]
-

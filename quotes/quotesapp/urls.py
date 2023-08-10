@@ -3,6 +3,8 @@ from .views import AddTag, AddAuthor, AddQuote, AuthorDetail, QuotesHome
 
 app_name = 'quotesapp'
 
+
+
 urlpatterns = [
     path('', QuotesHome.as_view(), name='main'),
     path('tag/', AddTag.as_view(), name='tag'),
