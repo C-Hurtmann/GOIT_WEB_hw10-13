@@ -4,9 +4,19 @@ services:
     image: 'postgres:latest'
     restart: always
     ports:
-      - 5432:5432
+      - ${DATABASE_PORT}:5432
     environment:
-      POSTGRES_DB: django-project-database
-      POSTGRES_USER: czagorodnyi
-      POSTGRES_PASSWORD: B34f56j47h55
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+  web:
+    build: .
+    env_file: .env
+    command: python3 quotes/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    depends_on:
+      - database
 

@@ -25,7 +25,7 @@ env.read_env(BASE_DIR.parent / '.env')
 SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = bool(env('DEBUG'))
 
 ALLOWED_HOSTS = ['*']
 

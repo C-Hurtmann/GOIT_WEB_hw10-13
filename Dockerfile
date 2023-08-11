@@ -11,4 +11,4 @@ RUN poetry config virtualenvs.create false && poetry install --only main
 
 COPY . .
 
-CMD ["python3", "quotes/manage.py", "runserver", "0.0.0.0:8000"]
+EXPOSE 8000
