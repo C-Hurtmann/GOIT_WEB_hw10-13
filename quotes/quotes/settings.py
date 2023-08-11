@@ -28,7 +28,7 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 DEBUG = bool(env('DEBUG'))
 
 ALLOWED_HOSTS = ['*']
-
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000']
 
 # Application definition
 
