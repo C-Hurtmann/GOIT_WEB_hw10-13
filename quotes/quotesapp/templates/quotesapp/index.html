@@ -29,6 +29,11 @@
             <li><a href="{% url 'users:login' %}" role="button">Login</a></li>
         </ul>
         {% endif %}
+        <form class="input-group">
+            <input name="q" type="text" class="form-control" id="inputText" placeholder="Search for..." value="{{ request.GET.q }}">
+            <button type="submit">Search</button>
+            <a href="{% url 'quotesapp:main' %}"><button type="button">Reset</button></a>
+        </form>
     </nav>
     <div style="display: flex;">
         <div>
@@ -78,7 +83,7 @@
         <ul>
             {% if page_obj.has_previous %}
             <li>
-                <a href="?page={{ page_obj.previous_page_number }}">&lt</a>
+                <a href="?page={{ page_obj.previous_page_number }}{% if q %}&q={{ q }}{% endif %}">&lt</a>
             </li>
             {% endif %}
             {% for page in page_obj.paginator.page_range %}
@@ -86,13 +91,13 @@
             <li>{{ page }}</li>
             {% elif page >= page_obj.number|add:-3 and page <= page_obj.number|add:3 %}
             <li>
-                <a href="?page={{ page }}">{{ page }}</a>
+                <a href="?page={{ page }}{% if q %}&q={{ q }}{% endif %}">{{ page }}</a>
             </li>
             {% endif %}
             {% endfor %}
             {% if page_obj.has_next %}
             <li>
-                <a href="?page={{ page_obj.next_page_number }}">&gt</a>
+                <a href="?page={{ page_obj.next_page_number }}{% if q %}&q={{ q }}{% endif %}">&gt</a>
             </li>
             {% endif %}
         </ul>

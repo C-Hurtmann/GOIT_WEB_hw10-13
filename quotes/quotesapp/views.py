@@ -1,6 +1,7 @@
 from typing import Any
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.views.generic import ListView, CreateView, DetailView
@@ -18,7 +19,22 @@ class QuotesHome(ListView):
     paginate_by = 5
     
     def get_queryset(self) -> QuerySet[Any]:
-        return super().get_queryset()
+        quotes = Quote.objects.all()
+        q = self.request.GET.get('q')
+        if q:
+            quotes = quotes.filter(
+                  Q(quote__icontains=q)
+                | Q(author__fullname__icontains=q)
+                | Q(tags__name__icontains=q)
+                )
+
+        return quotes
+    
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        q = self.request.GET.get('q')
+        context['q'] = q
+        return context
 
 
 class AuthorDetail(DetailView):
